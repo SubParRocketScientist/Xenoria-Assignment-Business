@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xenoria - Reserved for Rarity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --midnight-indigo: #1a1a2e;
+            --warm-ivory: #f5f0e8;
+            --platinum: #e8e8e8;
+            --deep-emerald: #2d5a3d;
+            --merlot: #6b2737;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--midnight-indigo);
+            color: var(--warm-ivory);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--warm-ivory);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--platinum);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--warm-ivory);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(45, 90, 61, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--platinum);
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .hero .mission {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--platinum);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: transparent;
+            border: 2px solid var(--warm-ivory);
+            color: var(--warm-ivory);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: var(--warm-ivory);
+            color: var(--midnight-indigo);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        section h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+        }
+
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: var(--deep-emerald);
+            margin: 0 auto 4rem;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            background: rgba(245, 240, 232, 0.05);
+            border: 1px solid rgba(245, 240, 232, 0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            background: rgba(245, 240, 232, 0.08);
+            border-color: rgba(45, 90, 61, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            color: var(--warm-ivory);
+        }
+
+        .service-card p {
+            color: var(--platinum);
+            line-height: 1.8;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            padding: 3rem 2rem;
+            background: rgba(245, 240, 232, 0.03);
+            border: 1px solid rgba(245, 240, 232, 0.15);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--deep-emerald);
+            background: rgba(45, 90, 61, 0.1);
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+            border-color: var(--deep-emerald);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--deep-emerald);
+            color: var(--warm-ivory);
+            padding: 0.3rem 1.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            color: var(--warm-ivory);
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--platinum);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+            color: var(--platinum);
+        }
+
+        /* Exclusive Section */
+        .exclusive {
+            background: linear-gradient(135deg, rgba(107, 39, 55, 0.2), rgba(45, 90, 61, 0.2));
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+        }
+
+        .exclusive-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .exclusive-content h2 {
+            margin-bottom: 2rem;
+        }
+
+        .exclusive-content p {
+            font-size: 1.2rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            color: var(--platinum);
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Apply Section */
+        .apply {
+            text-align: center;
+            background: rgba(245, 240, 232, 0.02);
+        }
+
+        .apply-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .apply-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--platinum);
+        }
+
+        .apply-form {
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(245, 240, 232, 0.05);
+            border: 1px solid rgba(245, 240, 232, 0.2);
+            color: var(--warm-ivory);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--deep-emerald);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+        }
+
+        footer p {
+            color: var(--platinum);
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Xenoria</div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#exclusive">Exclusivity</a></li>
+                <li><a href="#apply">Apply</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Xenoria</h1>
+            <p class="tagline">Reserved for Rarity</p>
+            <p class="mission">
+                Invitation-only digital estates for elite creators. Where craftsmanship meets exclusivity, 
+                and every page becomes a statement of professional distinction.
+            </p>
+            <a href="#apply" class="cta-button">Request Invitation</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2>Curated Excellence</h2>
+            <div class="divider"></div>
+            <div class="services-grid fade-in">
+                <div class="service-card">
+                    <h3>Artisan Design</h3>
+                    <p>Handcrafted landing pages with editorial typography, bespoke templates, and deep customization. Each page is a digital estate, not a link list.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Private Hosting</h3>
+                    <p>Managed CDN infrastructure with SSL, vanity domain support, and white-label DNS. Your brand, your domain, our exceptional performance.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Insight-Grade Analytics</h3>
+                    <p>Real-time attribution, conversion tracking, session heatmaps, and exportable reports built for revenue optimization, not vanity metrics.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Commerce Integration</h3>
+                    <p>Embedded checkout, digital drops, media widgets, and CRM integrations. Turn your presence into revenue with sophisticated tools.</p>
+                </div>
+                <div class="service-card">
+                    <h3>White-Glove Onboarding</h3>
+                    <p>One-on-one design consultations, brand alignment sessions, and dedicated support. We don't scale at the expense of quality.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Network Prestige</h3>
+                    <p>VIP events, brand introductions, and partnership opportunities. Membership creates value beyond the platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <h2>Membership Tiers</h2>
+            <div class="divider"></div>
+            <div class="pricing-grid fade-in">
+                <div class="pricing-card">
+                    <h3>Standard</h3>
+                    <div class="price">$19<span>/mo</span></div>
+                    <ul>
+                        <li>Hosted subdomain</li>
+                        <li>6 premium templates</li>
+                        <li>Basic analytics dashboard</li>
+                        <li>CDN & SSL included</li>
+                        <li>Email support</li>
+                    </ul>
+                    <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--platinum);">$190/year (save 17%)</p>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <h3>Premium</h3>
+                    <div class="price">$79<span>/mo</span></div>
+                    <ul>
+                        <li>Custom vanity domain</li>
+                        <li>All templates + customization</li>
+                        <li>Advanced analytics suite</li>
+                        <li>Conversion tracking & heatmaps</li>
+                        <li>Commerce widgets</li>
+                        <li>Priority support</li>
+                        <li>Design consultation</li>
+                    </ul>
+                    <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--platinum);">$790/year (save 17%)</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul>
+                        <li>All Premium features</li>
+                        <li>Brand partnership access</li>
+                        <li>Featured placements</li>
+                        <li>Exclusive event invitations</li>
+                        <li>Campaign management</li>
+                        <li>Dedicated success manager</li>
+                        <li>API access & integrations</li>
+                    </ul>
+                    <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--platinum);">Contact for pricing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="exclusive" class="exclusive">
+        <div class="container">
+            <div class="exclusive-content">
+                <h2>Invitation Only</h2>
+                <div class="divider"></div>
+                <p>
+                    Xenoria is designed for elite U.S. creators with 250,000+ followers who require more than mass-market solutions. 
+                    Membership is by invitation or application with a $500 screening fee.
+                </p>
+                <p>
+                    Scarcity creates value. Exclusivity signals status. When your digital presence represents your professional identity, 
+                    the platform matters as much as the content.
+                </p>
+                <div class="features-list fade-in">
+                    <div class="feature-item">
+                        <div class="feature-icon">✦</div>
+                        <h4>Curated Community</h4>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✦</div>
+                        <h4>Brand Partnerships</h4>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✦</div>
+                        <h4>Editorial Events</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="apply" class="apply">
+        <div class="container">
+            <div class="apply-content">
+                <h2>Request Membership</h2>
+                <div class="divider"></div>
+                <p>
+                    Applications are reviewed on a rolling basis. Please provide your details below, 
+                    and our team will evaluate your fit for the Xenoria community.
+                </p>
+                <form class="apply-form fade-in">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="platform">Primary Platform & Handle</label>
+                        <input type="text" id="platform" name="platform" placeholder="e.g., Instagram @username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="followers">Follower Count</label>
+                        <input type="text" id="followers" name="followers" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Why Xenoria?</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your brand and goals..." required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="border: none; cursor: pointer;">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Xenoria. Reserved for Rarity.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission handler
+        document.querySelector('.apply-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your application. Our team will review your submission and contact you within 3-5 business days.');
+            this.reset();
+        });
+
+        // Nav background on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(26, 26, 46, 0.98)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 46, 0.95)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
